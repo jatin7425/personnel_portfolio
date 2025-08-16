@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ProfileDetails } from "@/types/basicDetails";
 
 export default function Header({ basicData }: { basicData: ProfileDetails }) {
-  const [GitHubLink, setGitHubLink] = useState<String>();
+  const [GitHubLink, setGitHubLink] = useState<string>();
 
   useEffect(() => {
     if (basicData) {
-      let SocialLinks = basicData?.Social;
+      const SocialLinks = basicData?.Social;
       SocialLinks.map((SocialLink) => {
         if (SocialLink?.name.toLowerCase() == "GitHub".toLowerCase()) {
           setGitHubLink(SocialLink?.link);
