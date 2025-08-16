@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import iconMap from "@/components/ui/iconMap";
 
 const Hero = ({ basicData }: { basicData: ProfileDetails }) => {
-  const [profesion, setProfesion] = useState<String>();
+  const [profesion, setProfesion] = useState<string>();
 
   useEffect(() => {
     if (basicData) {

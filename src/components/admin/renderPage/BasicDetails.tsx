@@ -25,7 +25,7 @@ const BasicDetailsPage: React.FC<BasicDetailsPageProps> = ({ basicData }) => {
   const handleSaveChanges = async () => {
     console.log("Saving data:", details);
     // TODO: Add your API call here to save the details
-    let res = await updateBasicDetails(details);
+    const res = await updateBasicDetails(details);
     if (res) {
       console.log("Data saved successfully:", res);
     }
