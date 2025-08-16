@@ -2,15 +2,27 @@ import { fetchExperience } from "@/services/experience.services";
 import { ProfileDetails } from "@/types/basicDetails";
 import { EducationType, ExperienceType } from "@/types/experience";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import ExperienceCard from "./ui/ExperienceCard";
 import EducationCard from "./ui/EducationCard";
 import CertificationCard from "./ui/CertificationCard";
 import { fetchEducation } from "@/services/education.service";
 import { fetchCertifications } from "@/services/certification.service";
 import { CertificationType } from "@/types/certification";
+import { fetchStats } from "@/services/stats.services";
 
 type Tab = "experience" | "education" | "certifications";
+
+type StatTitle =
+  | "Years Experience"
+  | "Projects Completed"
+  | "Data Points Scraped"
+  | "Age";
+
+type StatsProps = {
+  title: StatTitle;
+  value: string | number;
+};
 
 const About = ({ basicData }: { basicData: ProfileDetails }) => {
   const [experiences, setExperiences] = useState<ExperienceType[] | null>(null);
@@ -18,7 +30,9 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
   const [certifications, setCertifications] = useState<
     CertificationType[] | null
   >(null);
+  const [devStats, setDevStats] = useState<StatsProps[]>([]);
   const [activeTab, setActiveTab] = useState<Tab>("experience");
+  const [exp, setexp] = useState<string>()
 
   useEffect(() => {
     const getExperience = async () => {
@@ -70,9 +84,31 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
       }
     };
 
+    const getStats = async () => {
+      try {
+        const stats = await fetchStats();
+        setDevStats(
+          stats.map((stat: { title: string; value: string | number }) => ({
+            ...stat,
+            title: stat.title as StatTitle,
+          }))
+        );
+        for (const stat of stats) {
+          if (stat.title === "Years Experience") {
+            setexp((stat.value as string) + " years");
+          } else if (stat.title === "Months Experience") {
+            setexp((stat.value as string) + " months");
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch stats:", error);
+      }
+    };
+
     getExperience();
     getEducation();
     getCertifications();
+    getStats();
   }, []);
 
   const renderTabContent = () => {
@@ -89,14 +125,14 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
   };
 
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800 w-screen">
+    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Passionate developer with 5+ years of experience building innovative
+            Passionate developer with {exp} of experience building innovative
             solutions
           </p>
         </div>
@@ -115,38 +151,9 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
                 Quick Stats
               </h3>
               <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
-                    50+
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    Projects Completed
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-                    5+
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    Years Experience
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600 dark:text-green-400">
-                    100M+
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    Data Points Scraped
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">
-                    24/7
-                  </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
-                    System Uptime
-                  </div>
-                </div>
+                {devStats.map((stat, idx) => (
+                  <Stats key={idx} stats={stat} />
+                ))}
               </div>
             </div>
           </div>
@@ -275,6 +282,44 @@ const CertificationsTab = ({
           </div>
         ))
       )}
+    </div>
+  );
+};
+
+const colorMap: Record<string, { title: string; value: string }> = {
+  "Months Experience": {
+    title: "ttext-gray-600 dark:text-gray-300",
+    value: "text-blue-600 dark:text-blue-400",
+  },
+  "Years Experience": {
+    title: "ttext-gray-600 dark:text-gray-300",
+    value: "text-blue-600 dark:text-blue-400",
+  },
+  "Projects Completed": {
+    title: "text-gray-600 dark:text-gray-300",
+    value: "text-purple-600 dark:text-purple-400",
+  },
+  "Data Points Scraped": {
+    title: "text-gray-600 dark:text-gray-300",
+    value: "text-green-600 dark:text-green-400",
+  },
+  Age: {
+    title: "text-gray-600 dark:text-gray-300",
+    value: "text-orange-600 dark:text-orange-400",
+  },
+};
+
+const Stats = ({ stats }: { stats: StatsProps }) => {
+  const colors = colorMap[stats.title] || {
+    title: "text-gray-600 dark:text-gray-300",
+    value: "text-gray-600 dark:text-gray-300",
+  };
+  return (
+    <div className="text-center">
+      <div className={`text-3xl font-bold ${colors.value} mb-2`}>
+        {stats.value}+
+      </div>
+      <div className={`text-sm ${colors.title}`}>{stats.title}</div>
     </div>
   );
 };

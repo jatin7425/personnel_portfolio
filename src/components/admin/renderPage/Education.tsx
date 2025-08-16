@@ -13,6 +13,7 @@ import { EducationType } from "@/types/education";
 const Education = () => {
   const [educations, setEducations] = useState<EducationType[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [stateChange, setStateChange] = useState(false);
   const [selectedEducation, setSelectedEducation] =
     useState<EducationType | null>(null);
 
@@ -41,7 +42,7 @@ const Education = () => {
       }
     };
     getEducation();
-  }, []);
+  }, [stateChange]);
 
   const onSubmit = async (data: EducationType) => {
     try {
@@ -57,6 +58,7 @@ const Education = () => {
       reset();
       setIsEditing(false);
       setSelectedEducation(null);
+      setStateChange(!stateChange); // Trigger state change to re-fetch data
     } catch (error) {
       // Optionally handle error
     }
@@ -66,12 +68,14 @@ const Education = () => {
     setIsEditing(true);
     setSelectedEducation(edu);
     reset(edu);
+    setStateChange(!stateChange); // Reset state change to re-fetch data
   };
 
   const handleDelete = async (id: string) => {
     try {
       await deleteEducation(id);
       setEducations((prev) => prev.filter((edu) => edu._id !== id));
+      setStateChange(!stateChange); // Trigger state change to re-fetch data
     } catch (error) {
       // Optionally handle error
     }
@@ -81,6 +85,7 @@ const Education = () => {
     reset();
     setIsEditing(false);
     setSelectedEducation(null);
+    setStateChange(!stateChange); // Reset state change to re-fetch data
   };
 
   return (

@@ -38,7 +38,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-black via-indigo-900 to-purple-900 opacity-70"></div>
       </div>
       {/* Content */}
-      <div className="relative z-10 w-full flex flex-col items-center justify-center">
+      <div className="relative z-10 w-[99vw] mx-auto overflow-x-hidden flex flex-col items-center justify-center">
         {basicData && <Header basicData={basicData} />}
         {basicData && <Hero basicData={basicData} />}
         {basicData && <About basicData={basicData} />}

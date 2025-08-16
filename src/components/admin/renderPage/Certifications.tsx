@@ -8,6 +8,7 @@ import { CertificationType } from "@/types/certification";
 const Certifications = () => {
   const [certifications, setCertifications] = useState<CertificationType[]>([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [stateChange, setStateChange] = useState(false);
   const [selectedCertification, setSelectedCertification] = useState<CertificationType | null>(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<CertificationType>({
@@ -27,7 +28,7 @@ const Certifications = () => {
       } catch (error) {}
     };
     getCertifications();
-  }, []);
+  }, [stateChange]);
 
   const onSubmit = async (data: CertificationType) => {
     try {
@@ -41,6 +42,7 @@ const Certifications = () => {
       reset();
       setIsEditing(false);
       setSelectedCertification(null);
+      setStateChange(!stateChange); // Trigger state change to re-fetch data
     } catch (error) {}
   };
 
@@ -54,6 +56,7 @@ const Certifications = () => {
     try {
       await deleteCertification(id);
       setCertifications((prev) => prev.filter((cert) => cert._id !== id));
+      setStateChange(!stateChange); // Trigger state change to re-fetch data
     } catch (error) {}
   };
 
@@ -61,6 +64,7 @@ const Certifications = () => {
     reset();
     setIsEditing(false);
     setSelectedCertification(null);
+    setStateChange(!stateChange); // Reset state change to re-fetch data
   };
 
   return (
