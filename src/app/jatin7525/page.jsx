@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react'
 import Sidebar from "@/components/admin/Sidebar";
 import MainPage from "@/components/admin/MainPage";
 
