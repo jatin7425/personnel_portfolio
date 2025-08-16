@@ -7,6 +7,7 @@ import {
   Folder,
   Mail,
 } from "lucide-react";
+import Link from "next/link";
 
 const stats = [
   { label: "Projects", value: 18, icon: Folder },
@@ -28,7 +29,17 @@ const Dashboard = () => {
   return (
     <main className="w-full h-screen overflow-y-auto bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 sm:p-8 p-4">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-white mb-8">Admin Dashboard</h1>
+        <div>
+          <h1 className="text-4xl font-bold text-white mb-8">
+            Admin Dashboard
+          </h1>
+          <Link
+            href="/"
+            className="text-blue-400 hover:underline mb-4 inline-block"
+          >
+            Visit Site
+          </Link>
+        </div>
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-10">
           {stats.map(({ label, value, icon: Icon }) => (
@@ -51,7 +62,10 @@ const Dashboard = () => {
           </h2>
           <ul className="divide-y divide-gray-700">
             {recentActivity.map((activity, idx) => (
-              <li key={idx} className="py-3 flex justify-between sm:items-center max-sm:flex-col">
+              <li
+                key={idx}
+                className="py-3 flex justify-between sm:items-center max-sm:flex-col"
+              >
                 <span className="text-gray-300">
                   {activity.type}:{" "}
                   <span className="font-semibold text-white">

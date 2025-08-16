@@ -55,11 +55,11 @@ const navItems = [
 ];
 
 const Sidebar = ({ selected_option }: { selected_option: string }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth <= 720) {
-      setIsOpen(false);
+    if (typeof window !== "undefined" && window.innerWidth >= 720) {
+      setIsOpen(true);
     }
   }, []);
 
@@ -74,17 +74,7 @@ const Sidebar = ({ selected_option }: { selected_option: string }) => {
       </button>
 
       {/* Sidebar */}
-      <aside
-        className={`
-          bg-gray-900 text-white w-64 p-4 space-y-2 transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          ${
-            typeof window !== "undefined" && window.innerWidth <= 1280
-              ? "fixed top-0 left-0 h-full z-40 overflow-y-auto"
-              : "xl:relative fixed h-screen"
-          }
-        `}
-      >
+      <aside className={`bg-gray-900 text-white w-64 p-4 space-y-2 transition-transform duration-300 shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"} max-xl:fixed max-xl:top-0 max-xl:left-0 max-xl:h-full max-xl:z-40 max-xl:overflow-y-auto xl:relative fixed h-screen`}>
         <div className="text-2xl font-bold mb-6">Portfolio Admin</div>
         <nav className="space-y-1">
           {navItems.map(({ name, href, icon: Icon }) => (
