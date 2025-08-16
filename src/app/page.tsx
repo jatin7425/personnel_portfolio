@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       const data = await fetchBasicDetails();
-      setBasicData(data);
+      setBasicData(data ?? undefined);
     }
 
     fetchData();

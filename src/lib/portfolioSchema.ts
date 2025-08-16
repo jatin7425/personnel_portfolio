@@ -1,5 +1,3 @@
-// lib/portfolioSchema.ts
-import { link } from "node:fs";
 import { z } from "zod";
 
 const TimelineSchema = z.object({
