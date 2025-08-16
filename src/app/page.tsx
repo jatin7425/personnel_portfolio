@@ -7,6 +7,7 @@ import { ProfileDetails } from "@/types/basicDetails";
 import { useEffect, useState } from "react";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
 import LoadingPage from "@/components/ui/LoadingPage";
+import About from "@/components/About";
 export default function Home() {
   const [basicData, setBasicData] = useState<ProfileDetails>();
 
@@ -25,7 +26,7 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-between">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+      <div className="fixed top-0 inset-0 z-0">
         <Image
           src={herobg}
           alt="Background"
@@ -40,6 +41,7 @@ export default function Home() {
       <div className="relative z-10 w-full flex flex-col items-center justify-center">
         {basicData && <Header basicData={basicData} />}
         {basicData && <Hero basicData={basicData} />}
+        {basicData && <About basicData={basicData} />}
       </div>
     </main>
   );

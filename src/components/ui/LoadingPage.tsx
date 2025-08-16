@@ -3,7 +3,7 @@ import React from "react";
 
 export default function LoadingPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white w-full">
       {/* Glowing animated logo */}
       <div className="mb-8 animate-pulse">
         <div className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg shadow-pink-500/50"></div>

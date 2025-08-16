@@ -3,9 +3,15 @@ import Dashboard from "./renderPage/Dashboard";
 import BasicDetails from "./renderPage/BasicDetails";
 import { ProfileDetails } from "@/types/basicDetails";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
+import Experience from "./renderPage/Experience";
+import LoadingPage from "../ui/LoadingPage";
+import Education from "./renderPage/Education";
+import Certifications from "./renderPage/Certifications";
 
 const MainPage = ({ selected_option }: { selected_option: string }) => {
-  const [basicData, setBasicData] = useState<ProfileDetails | undefined | null>(undefined);
+  const [basicData, setBasicData] = useState<ProfileDetails | undefined | null>(
+    undefined
+  );
 
   useEffect(() => {
     async function fetchData() {
@@ -18,16 +24,20 @@ const MainPage = ({ selected_option }: { selected_option: string }) => {
 
   switch (selected_option) {
     case "basic-details":
-      return basicData ? <BasicDetails basicData={basicData} /> : null;
+      return basicData ? (
+        <BasicDetails basicData={basicData} />
+      ) : (
+        <LoadingPage />
+      );
 
     case "experience":
-      return <Dashboard />;
+      return <Experience />;
 
     case "education":
-      return <Dashboard />;
+      return <Education />;
 
     case "certifications":
-      return <Dashboard />;
+      return <Certifications />;
 
     case "skills":
       return <Dashboard />;

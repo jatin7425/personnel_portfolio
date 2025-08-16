@@ -23,6 +23,7 @@ const Hero = ({ basicData }: { basicData: ProfileDetails }) => {
 
   return (
     <section
+      id="hero"
       className="w-screen mt-[64px]"
       style={{ height: "calc(100vh - 64px)" }}
     >

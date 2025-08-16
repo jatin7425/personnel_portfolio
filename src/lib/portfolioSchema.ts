@@ -37,8 +37,9 @@ export const basicDetailsSchema = z.object({
 
 // 2. Experience
 export const ExperienceSchema = z.object({
-    Post: z.string(),
-    Company: z.string(),
+    _id: z.string().optional(), // Optional for new entries
+    position: z.string(),
+    company: z.string(),
     timeline: TimelineSchema,
     description: z.string(),
     createdAt: z.date().optional(),
@@ -46,6 +47,7 @@ export const ExperienceSchema = z.object({
 
 // 3. Education
 export const EducationSchema = z.object({
+    _id: z.string().optional(), // Optional for new entries
     course: z.string(),
     organisation: z.string(),
     timeline: TimelineSchema,
@@ -55,6 +57,7 @@ export const EducationSchema = z.object({
 
 // 4. Certifications
 export const CertificationSchema = z.object({
+    _id: z.string().optional(), // Optional for new entries
     Certificate: z.string(),
     from: z.string(),
     year: z.string(),
@@ -63,6 +66,7 @@ export const CertificationSchema = z.object({
 
 // 5. Skills
 export const SkillsSchema = z.object({
+    _id: z.string().optional(), // Optional for new entries
     stack: z.string(),
     tech: z.string(),
     Proficiency: z.string(), // e.g., "Beginner", "Intermediate", "Expert"
@@ -71,6 +75,7 @@ export const SkillsSchema = z.object({
 
 // 6. Projects
 export const ProjectSchema = z.object({
+    _id: z.string().optional(), // Optional for new entries
     title: z.string(),
     category: z.string(),
     tech_used: z.array(z.string()),
@@ -83,6 +88,7 @@ export const ProjectSchema = z.object({
 });
 
 export const contactFormSchema = z.object({
+    _id: z.string().optional(), // Optional for new entries
     name: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email("Invalid email address"),
     subject: z.string().min(3, "Subject must be at least 3 characters"),
