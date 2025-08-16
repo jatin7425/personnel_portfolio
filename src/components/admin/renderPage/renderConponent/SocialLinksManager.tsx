@@ -1,4 +1,4 @@
-import React, { JSX, useState } from "react";
+import React, { useState } from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { SocialItem } from "@/types/basicDetails";
 import { IconButton } from "@/components/ui/IconButton";

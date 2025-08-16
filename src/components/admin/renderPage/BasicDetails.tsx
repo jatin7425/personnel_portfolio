@@ -1,4 +1,4 @@
-import React, { JSX, useState } from "react";
+import React, { useState } from "react";
 import { ProfileDetails, SocialItem } from "@/types/basicDetails";
 import ProfileCard from "./renderConponent/ProfileCard";
 import DetailsForm from "./renderConponent/DetailsForm";
