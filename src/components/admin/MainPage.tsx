@@ -5,12 +5,12 @@ import { ProfileDetails } from "@/types/basicDetails";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
 
 const MainPage = ({ selected_option }: { selected_option: string }) => {
-  const [basicData, setBasicData] = useState<ProfileDetails>();
+  const [basicData, setBasicData] = useState<YourType | undefined | null>(undefined);
 
   useEffect(() => {
     async function fetchData() {
       const data = await fetchBasicDetails();
-      setBasicData(data);
+      setBasicData(data ?? undefined);
     }
 
     fetchData();
