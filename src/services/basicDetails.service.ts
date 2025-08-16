@@ -1,7 +1,7 @@
 import { ProfileDetails } from "@/types/basicDetails";
 
 // src/services/basicDetails.service.ts
-export const fetchBasicDetails = async (): Promise<ProfileDetails> => {
+export const fetchBasicDetails = async (): Promise<ProfileDetails | null> => {
     try {
         const res = await fetch("/api/basic-details");
         if (!res.ok) {
