@@ -158,6 +158,7 @@ export default function SyncGithubRepos() {
       }
       setMessage(`Successfully synced ${reposToSync.length} repositories!`);
       setSelected([]);
+      window.location.href = '/admin/projects'; // Reload to reflect changes
     } catch (err: any) {
       console.error(err);
       setMessage(`Error: ${err.message || "Failed to sync selected repos."}`);
