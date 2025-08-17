@@ -76,14 +76,16 @@ export const SkillsSchema = z.object({
 // 6. Projects
 export const ProjectSchema = z.object({
     _id: z.string().optional(), // Optional for new entries
+    repoId: z.string().optional() || z.string().optional(), // GitHub repo ID
     title: z.string(),
+    description: z.string(),
     category: z.string(),
     tech_used: z.array(z.string()),
-    ShortDescription: z.string(),
-    Thumbnail: z.string().url(),
-    VisitLink: z.string().url(),
-    GithubLink: z.string().url(),
+    thumbnail: z.string().url(),
+    visitLink: z.string().url(),
+    repoLink: z.string().url(),
     stats: DynamicIconMapSchema, // dynamic project stats
+    updatedAt: z.date().optional(),
     createdAt: z.date().optional(),
 });
 

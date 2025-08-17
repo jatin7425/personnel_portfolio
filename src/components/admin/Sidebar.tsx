@@ -14,6 +14,7 @@ import {
   Settings,
 } from "lucide-react";
 import Link from "next/link";
+import { RiGitRepositoryLine } from "react-icons/ri";
 
 const BASE_ADMIN_ROUTE: string | undefined =
   process.env.NEXT_PUBLIC_BASE_ADMIN_ROUTE;
@@ -41,6 +42,11 @@ const navItems = [
     icon: Award,
   },
   { name: "Skills", href: `/${BASE_ADMIN_ROUTE}/skills`, icon: Layers },
+  {
+    name: "SyncGithubRepos",
+    href: `/${BASE_ADMIN_ROUTE}/syncgithubrepos`,
+    icon: RiGitRepositoryLine,
+  },
   { name: "Projects", href: `/${BASE_ADMIN_ROUTE}/projects`, icon: Folder },
   {
     name: "Contact Messages",
@@ -74,7 +80,11 @@ const Sidebar = ({ selected_option }: { selected_option: string }) => {
       </button>
 
       {/* Sidebar */}
-      <aside className={`bg-gray-900 text-white w-64 p-4 space-y-2 transition-transform duration-300 shadow-2xl ${isOpen ? "translate-x-0" : "-translate-x-full"} max-xl:fixed max-xl:top-0 max-xl:left-0 max-xl:h-full max-xl:z-40 max-xl:overflow-y-auto xl:relative fixed h-screen`}>
+      <aside
+        className={`bg-gray-900 text-white w-64 p-4 space-y-2 transition-transform duration-300 shadow-2xl ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } max-xl:fixed max-xl:top-0 max-xl:left-0 max-xl:h-full max-xl:z-40 max-xl:overflow-y-auto xl:relative fixed h-screen`}
+      >
         <div className="text-2xl font-bold mb-6">Portfolio Admin</div>
         <nav className="space-y-1">
           {navItems.map(({ name, href, icon: Icon }) => (
