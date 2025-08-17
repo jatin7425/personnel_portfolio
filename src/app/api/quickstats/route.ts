@@ -5,7 +5,9 @@ export async function GET(request: Request) {
     const mongoose = await connectToDatabase();
     const db = mongoose.connection.db;
 
-    const data = await db.collection("Experience").find().toArray();
+    const experienceData = await db.collection("Experience").find().toArray();
+
+    const projectsCount = await db.collection("Projects").countDocuments();
 
     // month map
     const monthMap: Record<string, number> = {
@@ -15,7 +17,7 @@ export async function GET(request: Request) {
 
     let earliestDate: Date | null = null;
 
-    for (let exp of data) {
+    for (let exp of experienceData) {
         let from = exp?.timeline?.from; // e.g. "Jan 2025"
         if (!from) continue;
 
@@ -32,7 +34,7 @@ export async function GET(request: Request) {
     }
 
     let value = 0;
-    let label = "Years Experience";
+    let experienceLabel = "Years Experience";
 
     if (earliestDate) {
         const today = new Date();
@@ -43,15 +45,18 @@ export async function GET(request: Request) {
         if (totalMonths < 12) {
             // less than a year → show months
             value = totalMonths <= 0 ? 1 : totalMonths; // at least 1 month
-            label = "Months Experience";
+            experienceLabel = "Months Experience";
         } else {
             // 1 year or more → show years
             value = Math.floor(totalMonths / 12);
-            label = "Years Experience";
+            experienceLabel = "Years Experience";
         }
     }
 
-    const stats = [{ title: label, value: value }];
+    const stats = [
+        { title: experienceLabel, value: value },
+        { title: "Projects Completed", value: projectsCount }
+    ];
 
     return NextResponse.json(stats);
 }

@@ -7,6 +7,8 @@ import Experience from "./renderPage/Experience";
 import LoadingPage from "../ui/LoadingPage";
 import Education from "./renderPage/Education";
 import Certifications from "./renderPage/Certifications";
+import SyncGithubRepos from "./renderPage/SyncGithubRepos";
+import Projects from "./renderPage/Projects";
 
 const MainPage = ({ selected_option }: { selected_option: string }) => {
   const [basicData, setBasicData] = useState<ProfileDetails | undefined | null>(
@@ -42,8 +44,11 @@ const MainPage = ({ selected_option }: { selected_option: string }) => {
     case "skills":
       return <Dashboard />;
 
+    case "syncgithubrepos":
+      return <SyncGithubRepos />;
+
     case "projects":
-      return <Dashboard />;
+      return <Projects />;
 
     case "contact":
       return <Dashboard />;
