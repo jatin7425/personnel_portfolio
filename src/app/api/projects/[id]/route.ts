@@ -12,13 +12,13 @@ const ProjectUpdateSchema = z.object({
     thumbnail: z.string().url("Invalid thumbnail URL.").optional(),
     visitLink: z.string().url("Invalid visit link URL.").optional(),
     repoLink: z.string().url("Invalid repository link URL.").optional(),
+    render: z.boolean().optional(),
     stats: z.object({}).optional(),
 });
 
-export async function PUT(req: Request) {
+export async function PUT(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { searchParams } = new URL(req.url);
-        const id = searchParams.get("id");
+        const id = params.id;
 
         if (!id || !ObjectId.isValid(id)) {
             return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
@@ -51,10 +51,9 @@ export async function PUT(req: Request) {
     }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { searchParams } = new URL(req.url);
-        const id = searchParams.get("id");
+        const id = params.id;
 
         if (!id || !ObjectId.isValid(id)) {
             return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });
@@ -77,10 +76,9 @@ export async function DELETE(req: Request) {
     }
 }
 
-export async function GET(req: Request) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
     try {
-        const { searchParams } = new URL(req.url);
-        const id = searchParams.get("id");
+        const id = params.id;
 
         if (!id || !ObjectId.isValid(id)) {
             return NextResponse.json({ error: "Invalid project ID" }, { status: 400 });

@@ -84,6 +84,7 @@ export const ProjectSchema = z.object({
     thumbnail: z.string().url(),
     visitLink: z.string().url(),
     repoLink: z.string().url(),
+    render: z.boolean().default(true),
     stats: DynamicIconMapSchema, // dynamic project stats
     updatedAt: z.date().optional(),
     createdAt: z.date().optional(),
