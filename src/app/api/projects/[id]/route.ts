@@ -16,7 +16,7 @@ const ProjectUpdateSchema = z.object({
     stats: z.object({}).optional(),
 });
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: any) {
     try {
         const id = params.id;
 
@@ -51,7 +51,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: any) {
     try {
         const id = params.id;
 
@@ -76,7 +76,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
 }
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: any) {
     try {
         const id = params.id;
 
