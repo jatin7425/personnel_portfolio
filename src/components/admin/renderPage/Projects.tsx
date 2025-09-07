@@ -115,6 +115,21 @@ const ProjectForm = ({
             placeholder="Repo Link"
             className="w-full p-3 rounded bg-slate-700 text-white placeholder-slate-400 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500"
           />
+          <label className="flex items-center gap-3 text-slate-200">
+            <input
+              type="checkbox"
+              checked={Boolean((formData as any).render ?? true)}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  // @ts-ignore allow new field until types updated
+                  render: e.target.checked,
+                }))
+              }
+              className="h-4 w-4"
+            />
+            <span>Render on portfolio</span>
+          </label>
         </div>
         <div className="flex justify-end space-x-4 mt-6">
           <button
@@ -167,6 +182,12 @@ const ProjectCard = ({
           {project.title}
         </h3>
         <p className="text-sm text-slate-400 mb-4">{project.description}</p>
+        <p className="text-xs mb-2">
+          <span className="text-slate-400">Render:</span>{" "}
+          <span className={String((project as any).render ?? true) === 'true' ? 'text-green-400' : 'text-red-400'}>
+            {((project as any).render ?? true) ? 'Yes' : 'No'}
+          </span>
+        </p>
         {!isComplete && (
           <p className="text-red-300 text-sm font-medium mb-4">
             Incomplete: Please add details.
