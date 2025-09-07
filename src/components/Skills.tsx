@@ -98,7 +98,7 @@ const Skills: React.FC = () => {
   if (skills.length === 0) return null;
 
   return (
-    <section id="skills" className="py-20 w-full min-h-[calc(100vh-100px)] bg-[#0f172a]">
+    <section id="skills" className="py-20 w-full min-h-[calc(80vh-100px)] bg-[#0f172a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">Skills & Expertise</h2>
@@ -113,7 +113,7 @@ const Skills: React.FC = () => {
             <button
               key={c}
               onClick={() => setActive(c)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${active === c
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${active === c
                 ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md"
                 : "bg-slate-800 text-slate-200 hover:bg-slate-700"
                 }`}
@@ -128,7 +128,7 @@ const Skills: React.FC = () => {
           {(grouped[active] || []).map((s) => (
             <div
               key={`${s.stack}-${s.tech}`}
-              className="bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition"
+              className="bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition py-8"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
