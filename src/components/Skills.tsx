@@ -98,7 +98,7 @@ const Skills: React.FC = () => {
   if (skills.length === 0) return null;
 
   return (
-    <section id="skills" className="py-20 w-full min-h-[calc(100vh-64px)] bg-[#0f172a]">
+    <section id="skills" className="py-20 w-full min-h-[calc(100vh-100px)] bg-[#0f172a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">Skills & Expertise</h2>
