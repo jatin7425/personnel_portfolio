@@ -70,6 +70,7 @@ export const SkillsSchema = z.object({
     stack: z.string(),
     tech: z.string(),
     Proficiency: z.string(), // e.g., "Beginner", "Intermediate", "Expert"
+    icon: z.string().optional(),
     createdAt: z.date().optional(),
 });
 

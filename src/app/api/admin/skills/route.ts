@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { SkillsSchema } from "@/lib/portfolioSchema";
+import { ObjectId } from "mongodb";
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -16,17 +17,26 @@ export async function POST(req: Request) {
 
 export async function PUT(req: Request) {
     const { _id, ...rest } = await req.json();
+    if (!_id || typeof _id !== "string") {
+        return NextResponse.json({ error: "Invalid _id" }, { status: 400 });
+    }
     const mongoose = await connectToDatabase();
     const db = mongoose.connection.db;
-    await db.collection("Skills").updateOne({ _id }, { $set: { ...rest, updatedAt: new Date() } });
+    await db.collection("Skills").updateOne(
+        { _id: new ObjectId(_id) },
+        { $set: { ...rest, updatedAt: new Date() } }
+    );
     return NextResponse.json({ message: "Skill updated" });
 }
 
 export async function DELETE(req: Request) {
     const { _id } = await req.json();
+    if (!_id || typeof _id !== "string") {
+        return NextResponse.json({ error: "Invalid _id" }, { status: 400 });
+    }
     const mongoose = await connectToDatabase();
     const db = mongoose.connection.db;
-    await db.collection("Skills").deleteOne({ _id });
+    await db.collection("Skills").deleteOne({ _id: new ObjectId(_id) });
     return NextResponse.json({ message: "Skill deleted" });
 }
 
