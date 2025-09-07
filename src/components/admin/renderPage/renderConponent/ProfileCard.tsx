@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { FaCamera } from "react-icons/fa";
 import { ProfileDetails } from "@/types/basicDetails";
@@ -24,10 +25,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         {/* Avatar Section */}
         <div className="w-full md:max-w-70 min-[400px]:max-w-64 mx-auto">
           <div className="relative mb-6 w-full aspect-square">
-            <img
+            <Image
               src={details.ProfilePic}
               alt="Profile"
               className="w-full h-full rounded-2xl border-4 border-indigo-500 shadow-lg object-cover"
+              width={600}
+              height={600}
+              unoptimized
             />
             <label
               htmlFor="profile-pic-upload"

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // --- TYPE DEFINITION ---
 type Repo = {
@@ -66,48 +66,7 @@ export default function SyncGithubRepos() {
   const [message, setMessage] = useState("");
 
   // Step 1: grab token from URL or localStorage
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-
-    if (code) {
-      fetchToken(code);
-    } else {
-      const tokenFromLocalStorage = localStorage.getItem("github_token");
-      if (tokenFromLocalStorage) {
-        setToken(tokenFromLocalStorage);
-        fetchRepos(tokenFromLocalStorage);
-      }
-    }
-    // Clean up the URL to prevent re-fetching on refresh
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }, []);
-
-  const fetchToken = async (code: string) => {
-    try {
-      const res = await fetch(`/api/github/token?code=${code}`);
-      if (!res.ok) {
-        throw new Error("Failed to fetch GitHub token.");
-      }
-      const data = await res.json();
-      const fetchedToken = data.accessToken;
-      if (fetchedToken) {
-        setToken(fetchedToken);
-        localStorage.setItem("github_token", fetchedToken);
-        fetchRepos(fetchedToken);
-      } else {
-        setMessage("Error: No access token received. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error fetching token:", error);
-      setMessage(
-        "Error: Could not authenticate with GitHub. Please try again."
-      );
-    }
-  };
-
-  // Step 2: Fetch repositories from GitHub
-  const fetchRepos = async (accessToken: string) => {
+  const fetchRepos = useCallback(async (accessToken: string) => {
     setLoading(true);
     setMessage("");
     try {
@@ -131,7 +90,49 @@ export default function SyncGithubRepos() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const fetchToken = useCallback(async (code: string) => {
+    try {
+      const res = await fetch(`/api/github/token?code=${code}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch GitHub token.");
+      }
+      const data = await res.json();
+      const fetchedToken = data.accessToken;
+      if (fetchedToken) {
+        setToken(fetchedToken);
+        localStorage.setItem("github_token", fetchedToken);
+        fetchRepos(fetchedToken);
+      } else {
+        setMessage("Error: No access token received. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching token:", error);
+      setMessage(
+        "Error: Could not authenticate with GitHub. Please try again."
+      );
+    }
+  }, [fetchRepos]);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+
+    if (code) {
+      fetchToken(code);
+    } else {
+      const tokenFromLocalStorage = localStorage.getItem("github_token");
+      if (tokenFromLocalStorage) {
+        setToken(tokenFromLocalStorage);
+        fetchRepos(tokenFromLocalStorage);
+      }
+    }
+    // Clean up the URL to prevent re-fetching on refresh
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }, [fetchToken, fetchRepos]);
+
+  // Step 2: Fetch repositories from GitHub
 
   const handleSelect = (repoId: number) => {
     setSelected((prev) =>

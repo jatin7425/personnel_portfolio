@@ -1,8 +1,8 @@
 import { connectToDatabase } from '@/lib/mongodb';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
-  let stats = [
+export async function GET(_request: Request) {
+  const stats = [
     { title: 'Projects Completed', value: 10 },
     { title: 'Data Points Scraped', value: 100 },
     { title: 'Age', value: 100 },
@@ -31,29 +31,29 @@ export async function GET(request: Request) {
 
   let earliestDate: Date | null = null;
 
-  for (let exp of data) {
-    let from = exp?.timeline?.from; // e.g. "Jan 2025"
+  for (const exp of data) {
+    const from = exp?.timeline?.from; // e.g. "Jan 2025"
     if (!from) continue;
 
-    let [monthStr, yearStr] = from.split(" ");
-    let month = monthMap[monthStr];
-    let year = parseInt(yearStr);
+    const [monthStr, yearStr] = from.split(" ");
+    const month = monthMap[monthStr];
+    const year = parseInt(yearStr);
 
     if (!month || !year) continue;
 
-    let expDate = new Date(year, month - 1); // month - 1 because JS is 0-based
+    const expDate = new Date(year, month - 1); // month - 1 because JS is 0-based
     if (!earliestDate || expDate < earliestDate) {
       earliestDate = expDate;
     }
   }
 
   if (earliestDate) {
-    let today = new Date();
-    let totalMonths =
+    const today = new Date();
+    const totalMonths =
       (today.getFullYear() - earliestDate.getFullYear()) * 12 +
       (today.getMonth() - earliestDate.getMonth());
 
-    let totalExperienceYears = (totalMonths / 12).toFixed(1); // 1 decimal place
+    const totalExperienceYears = (totalMonths / 12).toFixed(1); // 1 decimal place
     stats.push({ title: 'Years Experience', value: Number(totalExperienceYears) });
   }
 
