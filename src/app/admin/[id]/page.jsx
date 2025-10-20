@@ -7,6 +7,9 @@ import AdminVerifyPage from "@/components/admin/AdminVerifyPage";
 
 const page = () => {
   const params = useParams();
+  if (typeof window !== 'undefined' && localStorage.getItem('admin_verified') !== 'true' && params.id !== 'verify') {
+    window.location.href = `/admin/verify/?next=${window.location.pathname}`;
+  }
   if (params.id === 'verify') {
     return <AdminVerifyPage />
   }

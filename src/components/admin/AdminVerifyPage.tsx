@@ -31,27 +31,16 @@ export default function AdminVerifyPage() {
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError('');
         const enteredPin = pin.join('');
+        const correctPin = process.env.NEXT_PUBLIC_ADMIN_PIN || '123456';
 
-        try {
-            const res = await fetch('/api/admin/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pin: enteredPin }),
-            });
-
-            if (res.ok) {
-                // server sets httpOnly cookie; just navigate
-                router.push(nextPath);
-            } else {
-                setError('Incorrect PIN. Please try again.');
-            }
-        } catch (err) {
-            console.error(err);
-            setError('Login failed.');
+        if (enteredPin === correctPin) {
+            localStorage.setItem('admin_verified', 'true');
+            router.push(nextPath);
+        } else {
+            setError('Incorrect PIN. Please try again.');
         }
     };
 
