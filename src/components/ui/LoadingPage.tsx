@@ -17,7 +17,7 @@ export default function LoadingPage() {
       </div>
 
       {/* Fancy text */}
-      <p className="text-lg font-mono tracking-widest animate-pulse">
+      <p className="text-lg font-mono tracking-widest animate-pulse text-center">
         Fetching the secrets of the universe...
       </p>
     </div>

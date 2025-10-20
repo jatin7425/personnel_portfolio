@@ -1,2 +1,74 @@
 @import "tailwindcss";
 @import "remixicon/fonts/remixicon.css";
+
+.profession-transition {
+    /* Initial state (when the new element mounts) */
+    animation: profession-enter 0.4s ease-out forwards;
+}
+
+@keyframes profession-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tailwind: custom utility layer (if using plain css file) */
+@layer utilities {
+    .animate-fade-in-up {
+        animation: fadeInUp 0.75s cubic-bezier(.16, .84, .44, 1) forwards;
+    }
+
+    .profession-fade {
+        animation: fadeInUp 0.7s ease forwards;
+    }
+
+    .animate-blob-slow {
+        animation: blobSlow 12s ease-in-out infinite;
+    }
+
+    .delay-2000 {
+        animation-delay: 2s;
+    }
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes blobSlow {
+    0% {
+        transform: scale(1) translateY(0) rotate(0deg);
+    }
+
+    33% {
+        transform: scale(1.05) translateY(-8px) rotate(10deg);
+    }
+
+    66% {
+        transform: scale(0.98) translateY(4px) rotate(-6deg);
+    }
+
+    100% {
+        transform: scale(1) translateY(0) rotate(0deg);
+    }
+}
+
+/* small helper to keep animation delays inline-friendly */
+.delay-1000 {
+    animation-delay: 1s;
+}

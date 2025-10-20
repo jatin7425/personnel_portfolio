@@ -9,48 +9,48 @@ import {
   SiDocker, SiKubernetes, SiGit, SiGithub, SiJenkins, SiLinux, SiAmazon
 } from "react-icons/si";
 import { GiSpiderWeb } from "react-icons/gi";
+import { FiZap } from "react-icons/fi";
 
-// Frontend-only icon resolution: normalize, alias, partial match
+// --- Icon Resolution (Kept as is) ---
+// (The icon resolution logic remains the same)
 const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 const iconAliases: Array<{ keys: string[]; icon: JSX.Element; color: string }> = [
   // --- Frontend ---
-  { keys: ["react"], icon: <SiReact className="text-sky-400 text-2xl" />, color: "bg-sky-400" },
-  { keys: ["nextjs", "next"], icon: <SiNextdotjs className="text-gray-200 text-2xl" />, color: "bg-gray-400" },
-  { keys: ["typescript", "ts"], icon: <SiTypescript className="text-blue-400 text-2xl" />, color: "bg-blue-500" },
-  { keys: ["tailwindcss", "tailwind"], icon: <SiTailwindcss className="text-cyan-400 text-2xl" />, color: "bg-cyan-400" },
-  { keys: ["html", "html5"], icon: <SiHtml5 className="text-orange-500 text-2xl" />, color: "bg-orange-500" },
-  { keys: ["vue", "vuejs"], icon: <SiVuedotjs className="text-green-500 text-2xl" />, color: "bg-green-500" },
+  { keys: ["react"], icon: <SiReact className="text-sky-400 text-3xl" />, color: "bg-sky-400" },
+  { keys: ["nextjs", "next"], icon: <SiNextdotjs className="text-gray-200 text-3xl" />, color: "bg-gray-400" },
+  { keys: ["typescript", "ts"], icon: <SiTypescript className="text-blue-400 text-3xl" />, color: "bg-blue-500" },
+  { keys: ["tailwindcss", "tailwind"], icon: <SiTailwindcss className="text-cyan-400 text-3xl" />, color: "bg-cyan-400" },
+  { keys: ["html", "html5"], icon: <SiHtml5 className="text-orange-500 text-3xl" />, color: "bg-orange-500" },
+  { keys: ["vue", "vuejs"], icon: <SiVuedotjs className="text-green-500 text-3xl" />, color: "bg-green-500" },
 
   // --- Backend ---
-  { keys: ["node", "nodejs"], icon: <SiNodedotjs className="text-green-500 text-2xl" />, color: "bg-green-500" },
-  { keys: ["express"], icon: <SiExpress className="text-gray-300 text-2xl" />, color: "bg-gray-400" },
-  { keys: ["django"], icon: <SiDjango className="text-emerald-500 text-2xl" />, color: "bg-emerald-500" },
-  { keys: ["fastapi"], icon: <SiFastapi className="text-teal-400 text-2xl" />, color: "bg-teal-400" },
-  { keys: ["spring", "springboot"], icon: <SiSpringboot className="text-green-600 text-2xl" />, color: "bg-green-600" },
-  { keys: ["flask"], icon: <SiFlask className="text-gray-200 text-2xl" />, color: "bg-gray-600" },
+  { keys: ["node", "nodejs"], icon: <SiNodedotjs className="text-green-500 text-3xl" />, color: "bg-green-500" },
+  { keys: ["express"], icon: <SiExpress className="text-gray-300 text-3xl" />, color: "bg-gray-400" },
+  { keys: ["django"], icon: <SiDjango className="text-emerald-500 text-3xl" />, color: "bg-emerald-500" },
+  { keys: ["fastapi"], icon: <SiFastapi className="text-teal-400 text-3xl" />, color: "bg-teal-400" },
+  { keys: ["spring", "springboot"], icon: <SiSpringboot className="text-green-600 text-3xl" />, color: "bg-green-600" },
+  { keys: ["flask"], icon: <SiFlask className="text-gray-200 text-3xl" />, color: "bg-gray-600" },
 
   // --- Databases ---
-  { keys: ["mongodb", "mongo"], icon: <SiMongodb className="text-green-500 text-2xl" />, color: "bg-green-500" },
-  { keys: ["postgres", "postgresql"], icon: <SiPostgresql className="text-sky-500 text-2xl" />, color: "bg-sky-500" },
-  { keys: ["mysql"], icon: <SiMysql className="text-blue-600 text-2xl" />, color: "bg-blue-600" },
-  { keys: ["sql"], icon: <SiMysql className="text-blue-600 text-2xl" />, color: "bg-blue-600" },
-  { keys: ["sqlite"], icon: <SiSqlite className="text-indigo-400 text-2xl" />, color: "bg-indigo-400" },
-  { keys: ["redis"], icon: <SiRedis className="text-red-500 text-2xl" />, color: "bg-red-500" },
+  { keys: ["mongodb", "mongo"], icon: <SiMongodb className="text-green-500 text-3xl" />, color: "bg-green-500" },
+  { keys: ["postgres", "postgresql"], icon: <SiPostgresql className="text-sky-500 text-3xl" />, color: "bg-sky-500" },
+  { keys: ["mysql"], icon: <SiMysql className="text-blue-600 text-3xl" />, color: "bg-blue-600" },
+  { keys: ["sql"], icon: <SiMysql className="text-blue-600 text-3xl" />, color: "bg-blue-600" },
+  { keys: ["sqlite"], icon: <SiSqlite className="text-indigo-400 text-3xl" />, color: "bg-indigo-400" },
+  { keys: ["redis"], icon: <SiRedis className="text-red-500 text-3xl" />, color: "bg-red-500" },
 
   // --- DevOps / Tools ---
-  { keys: ["docker"], icon: <SiDocker className="text-sky-400 text-2xl" />, color: "bg-sky-400" },
-  { keys: ["kubernetes", "k8s"], icon: <SiKubernetes className="text-blue-500 text-2xl" />, color: "bg-blue-500" },
-  { keys: ["git"], icon: <SiGit className="text-orange-500 text-2xl" />, color: "bg-orange-500" },
-  { keys: ["github"], icon: <SiGithub className="text-gray-200 text-2xl" />, color: "bg-gray-400" },
-  { keys: ["jenkins"], icon: <SiJenkins className="text-red-500 text-2xl" />, color: "bg-red-500" },
-  { keys: ["linux"], icon: <SiLinux className="text-yellow-400 text-2xl" />, color: "bg-yellow-400" },
-  { keys: ["aws", "amazon", "amazonwebservices"], icon: <SiAmazon className="text-orange-400 text-2xl" />, color: "bg-orange-400" },
+  { keys: ["docker"], icon: <SiDocker className="text-sky-400 text-3xl" />, color: "bg-sky-400" },
+  { keys: ["kubernetes", "k8s"], icon: <SiKubernetes className="text-blue-500 text-3xl" />, color: "bg-blue-500" },
+  { keys: ["git"], icon: <SiGit className="text-orange-500 text-3xl" />, color: "bg-orange-500" },
+  { keys: ["github"], icon: <SiGithub className="text-gray-200 text-3xl" />, color: "bg-gray-400" },
+  { keys: ["jenkins"], icon: <SiJenkins className="text-red-500 text-3xl" />, color: "bg-red-500" },
+  { keys: ["linux"], icon: <SiLinux className="text-yellow-400 text-3xl" />, color: "bg-yellow-400" },
+  { keys: ["aws", "amazon", "amazonwebservices"], icon: <SiAmazon className="text-orange-400 text-3xl" />, color: "bg-orange-400" },
 
   // --- Scraping / Automation ---
-  { keys: ["selenium"], icon: <SiSelenium className="text-green-400 text-2xl" />, color: "bg-green-400" },
-  { keys: ["beautifulsoup", "BeutifulSoup"], icon: <GiSpiderWeb className="text-pink-400 text-2xl" />, color: "bg-pink-400" },
-  { keys: ["bs4"], icon: <GiSpiderWeb className="text-pink-400 text-2xl" />, color: "bg-pink-400" },
-  { keys: ["scraping"], icon: <GiSpiderWeb className="text-pink-400 text-2xl" />, color: "bg-pink-400" },
+  { keys: ["selenium"], icon: <SiSelenium className="text-green-400 text-3xl" />, color: "bg-green-400" },
+  { keys: ["beautifulsoup", "BeutifulSoup", "bs4", "scraping"], icon: <GiSpiderWeb className="text-pink-400 text-3xl" />, color: "bg-pink-400" },
 ];
 
 const getIconEntry = (tech: string | undefined | null) => {
@@ -67,22 +67,29 @@ const getIconEntry = (tech: string | undefined | null) => {
   return undefined;
 };
 
+// --- Main Component ---
+
 const Skills: React.FC = () => {
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [active, setActive] = useState<string>("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetchSkills()
       .then((data) => {
         setSkills(data);
+        // Ensure that if data loads, the first category becomes active
         if (data.length > 0) setActive(data[0].stack);
       })
-      .catch(() => setSkills([]));
+      .catch(() => setSkills([]))
+      .finally(() => setLoading(false));
   }, []);
 
   const categories = useMemo(() => {
     const s = new Set<string>();
     skills.forEach((k) => s.add(k.stack));
+    // Sort categories alphabetically or manually here if needed
     return Array.from(s);
   }, [skills]);
 
@@ -95,58 +102,104 @@ const Skills: React.FC = () => {
     return map;
   }, [skills]);
 
+  if (loading) {
+    return (
+      <section id="skills" className="py-20 w-full bg-slate-900 min-h-[300px] flex items-center justify-center">
+        <FiZap className="animate-pulse text-indigo-400 text-4xl" />
+        <p className="ml-3 text-indigo-400 text-lg">Loading Skills...</p>
+      </section>
+    );
+  }
+
   if (skills.length === 0) return null;
 
   return (
-    <section id="skills" className="py-20 w-full min-h-[calc(80vh-100px)] bg-[#0f172a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">Skills & Expertise</h2>
-          <p className="text-gray-300">
-            A comprehensive overview of my technical skills and proficiency levels
+    <section id="skills" className="py-16 sm:py-20 w-full bg-slate-900 text-white relative overflow-hidden">
+
+      {/* Background radial gradient for a modern feel (Reduced size for mobile) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-indigo-500/10 rounded-full blur-3xl opacity-30 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[300px] relative z-10">
+        <div className="text-center mb-10 sm:mb-12">
+          <p className="text-indigo-400 font-semibold mb-2 uppercase tracking-wider text-sm sm:text-base flex items-center justify-center">
+            <FiZap className="mr-2 w-4 h-4 sm:w-5 sm:h-5" /> My Technical Arsenal
+          </p>
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+            Skills & Expertise
+          </h2>
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-2">
+            A comprehensive overview of the technologies I master, categorized by stack proficiency.
           </p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap gap-3 justify-center mb-8">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setActive(c)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${active === c
-                ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md"
-                : "bg-slate-800 text-slate-200 hover:bg-slate-700"
-                }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
+        {/* Main Content Box - Adjusted padding */}
+        <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl shadow-indigo-500/10 w-full p-4 sm:p-8 md:p-10 border border-slate-700/50">
 
-        {/* Skill Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {(grouped[active] || []).map((s) => (
-            <div
-              key={`${s.stack}-${s.tech}`}
-              className="bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition py-8"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  {getIconEntry(s.tech)?.icon || <span className="w-6 h-6 rounded bg-slate-600" />}
-                  <h3 className="text-white font-semibold text-lg">{s.tech}</h3>
+          {/* Category Tabs - Optimized for wrap and mobile spacing */}
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center mb-6 sm:mb-10 border-b border-slate-700 pb-4 overflow-x-hidden">
+            {categories.map((c) => (
+              <button
+                key={c}
+                onClick={() => setActive(c)}
+                className={`
+                  // Reduced padding and text size for mobile
+                  px-4 py-2 text-sm sm:px-6 sm:py-2 sm:text-base 
+                  rounded-full font-medium transition-all duration-300
+                  shadow-md hover:scale-[1.03] active:scale-[0.98] whitespace-nowrap
+                  ${active === c
+                    ? "bg-indigo-500 text-white shadow-indigo-500/40"
+                    : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                  }
+                `}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          {/* Skill Cards Grid - Kept 1-col on mobile, 2-col on sm */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            {(grouped[active] || []).map((s) => (
+              <div
+                key={`${s.stack}-${s.tech}`}
+                className="bg-slate-800/70 border border-slate-700 rounded-lg sm:rounded-xl p-4 sm:p-6 transition-all duration-300 transform hover:scale-[1.02] hover:bg-slate-700/80 cursor-default group"
+              >
+                <div className="flex flex-col items-start">
+
+                  {/* Icon and Title */}
+                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    {getIconEntry(s.tech)?.icon || (
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-600 flex items-center justify-center">
+                        <span className="text-xs font-bold text-white">?</span>
+                      </div>
+                    )}
+                    <h3 className="text-white font-extrabold text-lg sm:text-xl tracking-tight transition-colors group-hover:text-indigo-300">
+                      {s.tech}
+                    </h3>
+                  </div>
+
+                  {/* Proficiency Bar and Text */}
+                  <div className="w-full">
+                    <div className="flex items-center justify-between mb-1 sm:mb-2">
+                      <span className="text-slate-400 text-xs sm:text-sm font-medium">
+                        Proficiency
+                      </span>
+                      <span className="text-white font-bold text-xs sm:text-sm">
+                        {s.Proficiency}%
+                      </span>
+                    </div>
+
+                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden shadow-inner">
+                      <div
+                        className={`h-full rounded-full transition-all duration-700 ease-out ${getIconEntry(s.tech)?.color || "bg-indigo-500"}`}
+                        style={{ width: `${Number(String(s.Proficiency).replace("%", ""))}%` }}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <span className="text-slate-300 text-sm">
-                  {s.Proficiency}% Proficiency
-                </span>
               </div>
-              <div className="h-2 bg-slate-700 rounded overflow-hidden">
-                <div
-                  className={`h-2 rounded ${getIconEntry(s.tech)?.color || "bg-indigo-500"}`}
-                  style={{ width: `${Number(String(s.Proficiency).replace("%", ""))}%` }}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

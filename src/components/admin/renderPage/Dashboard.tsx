@@ -8,6 +8,8 @@ import {
   Mail,
 } from "lucide-react";
 import Link from "next/link";
+import ComponentToggles from "@/components/admin/ComponentToggles";
+import UIConfigEditor from "@/components/admin/UIConfigEditor";
 
 const stats = [
   { label: "Projects", value: 18, icon: Folder },
@@ -55,28 +57,26 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        {/* Recent Activity */}
-        <div className="bg-gray-800 rounded-xl p-6 shadow-lg">
-          <h2 className="text-2xl font-semibold text-white mb-4">
-            Recent Activity
-          </h2>
-          <ul className="divide-y divide-gray-700">
-            {recentActivity.map((activity, idx) => (
-              <li
-                key={idx}
-                className="py-3 flex justify-between sm:items-center max-sm:flex-col"
-              >
-                <span className="text-gray-300">
-                  {activity.type}:{" "}
-                  <span className="font-semibold text-white">
-                    {activity.name}
-                  </span>
-                </span>
-                <span className="text-gray-500 text-sm">{activity.date}</span>
-              </li>
-            ))}
-          </ul>
+        {/* Right column: Recent Activity + Admin Tools */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h2 className="text-2xl font-semibold text-white mb-4">Recent Activity</h2>
+            <ul className="divide-y divide-gray-700">
+              {recentActivity.map((activity, idx) => (
+                <li key={idx} className="py-3 flex justify-between sm:items-center max-sm:flex-col">
+                  <span className="text-gray-300">{activity.type}: <span className="font-semibold text-white">{activity.name}</span></span>
+                  <span className="text-gray-500 text-sm">{activity.date}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-1 flex flex-col gap-4">
+            <ComponentToggles />
+            <UIConfigEditor />
+          </div>
         </div>
+        
       </div>
     </main>
   );

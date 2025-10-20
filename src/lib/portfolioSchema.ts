@@ -87,6 +87,7 @@ export const ProjectSchema = z.object({
     repoLink: z.string().url(),
     render: z.boolean().default(true),
     stats: DynamicIconMapSchema, // dynamic project stats
+    status: z.enum(["In Development", "Completed"]).default("In Development"),
     updatedAt: z.date().optional(),
     createdAt: z.date().optional(),
 });
