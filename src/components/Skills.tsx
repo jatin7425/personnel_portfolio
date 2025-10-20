@@ -9,11 +9,10 @@ import {
   SiDocker, SiKubernetes, SiGit, SiGithub, SiJenkins, SiLinux, SiAmazon
 } from "react-icons/si";
 import { GiSpiderWeb } from "react-icons/gi";
-import { FiZap } from "react-icons/fi"; // Added a general category icon
+import { FiZap } from "react-icons/fi";
 
-// --- Icon Resolution (Kept for functionality) ---
-
-// Frontend-only icon resolution: normalize, alias, partial match
+// --- Icon Resolution (Kept as is) ---
+// (The icon resolution logic remains the same)
 const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 const iconAliases: Array<{ keys: string[]; icon: JSX.Element; color: string }> = [
   // --- Frontend ---
@@ -80,6 +79,7 @@ const Skills: React.FC = () => {
     fetchSkills()
       .then((data) => {
         setSkills(data);
+        // Ensure that if data loads, the first category becomes active
         if (data.length > 0) setActive(data[0].stack);
       })
       .catch(() => setSkills([]))
@@ -89,6 +89,7 @@ const Skills: React.FC = () => {
   const categories = useMemo(() => {
     const s = new Set<string>();
     skills.forEach((k) => s.add(k.stack));
+    // Sort categories alphabetically or manually here if needed
     return Array.from(s);
   }, [skills]);
 
@@ -113,34 +114,38 @@ const Skills: React.FC = () => {
   if (skills.length === 0) return null;
 
   return (
-    <section id="skills" className="py-20 w-full bg-slate-900 text-white relative overflow-hidden">
-      {/* Background radial gradient for a modern feel */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-3xl opacity-30 pointer-events-none" />
+    <section id="skills" className="py-16 sm:py-20 w-full bg-slate-900 text-white relative overflow-hidden">
+
+      {/* Background radial gradient for a modern feel (Reduced size for mobile) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] bg-indigo-500/10 rounded-full blur-3xl opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[300px] relative z-10">
-        <div className="text-center mb-12">
-          <p className="text-indigo-400 font-semibold mb-2 uppercase tracking-wider flex items-center justify-center">
-            <FiZap className="mr-2" /> My Technical Arsenal
+        <div className="text-center mb-10 sm:mb-12">
+          <p className="text-indigo-400 font-semibold mb-2 uppercase tracking-wider text-sm sm:text-base flex items-center justify-center">
+            <FiZap className="mr-2 w-4 h-4 sm:w-5 sm:h-5" /> My Technical Arsenal
           </p>
-          <h2 className="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
             Skills & Expertise
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto px-2">
             A comprehensive overview of the technologies I master, categorized by stack proficiency.
           </p>
         </div>
 
-        <div className="bg-slate-800/80 backdrop-blur-sm rounded-3xl shadow-2xl shadow-indigo-500/10 w-full p-8 md:p-10 border border-slate-700/50">
+        {/* Main Content Box - Adjusted padding */}
+        <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-2xl shadow-indigo-500/10 w-full p-4 sm:p-8 md:p-10 border border-slate-700/50">
 
-          {/* Category Tabs with enhanced styling */}
-          <div className="flex flex-wrap gap-4 justify-center mb-10 border-b border-slate-700 pb-4">
+          {/* Category Tabs - Optimized for wrap and mobile spacing */}
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center mb-6 sm:mb-10 border-b border-slate-700 pb-4 overflow-x-hidden">
             {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setActive(c)}
                 className={`
-                  px-6 py-2 rounded-full text-base font-medium transition-all duration-300
-                  shadow-md hover:scale-[1.03] active:scale-[0.98]
+                  // Reduced padding and text size for mobile
+                  px-4 py-2 text-sm sm:px-6 sm:py-2 sm:text-base 
+                  rounded-full font-medium transition-all duration-300
+                  shadow-md hover:scale-[1.03] active:scale-[0.98] whitespace-nowrap
                   ${active === c
                     ? "bg-indigo-500 text-white shadow-indigo-500/40"
                     : "bg-slate-700 text-slate-300 hover:bg-slate-600"
@@ -152,34 +157,34 @@ const Skills: React.FC = () => {
             ))}
           </div>
 
-          {/* Skill Cards Grid with transition and hover effects */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {/* Skill Cards Grid - Kept 1-col on mobile, 2-col on sm */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {(grouped[active] || []).map((s) => (
               <div
                 key={`${s.stack}-${s.tech}`}
-                className="bg-slate-800/70 border border-slate-700 rounded-xl p-6 transition-all duration-300 transform hover:scale-[1.02] hover:bg-slate-700/80 cursor-default group"
+                className="bg-slate-800/70 border border-slate-700 rounded-lg sm:rounded-xl p-4 sm:p-6 transition-all duration-300 transform hover:scale-[1.02] hover:bg-slate-700/80 cursor-default group"
               >
                 <div className="flex flex-col items-start">
 
                   {/* Icon and Title */}
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                     {getIconEntry(s.tech)?.icon || (
-                      <div className="w-8 h-8 rounded-lg bg-slate-600 flex items-center justify-center">
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-slate-600 flex items-center justify-center">
                         <span className="text-xs font-bold text-white">?</span>
                       </div>
                     )}
-                    <h3 className="text-white font-extrabold text-xl tracking-tight transition-colors group-hover:text-indigo-300">
+                    <h3 className="text-white font-extrabold text-lg sm:text-xl tracking-tight transition-colors group-hover:text-indigo-300">
                       {s.tech}
                     </h3>
                   </div>
 
                   {/* Proficiency Bar and Text */}
                   <div className="w-full">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-400 text-sm font-medium">
+                    <div className="flex items-center justify-between mb-1 sm:mb-2">
+                      <span className="text-slate-400 text-xs sm:text-sm font-medium">
                         Proficiency
                       </span>
-                      <span className="text-white font-bold text-sm">
+                      <span className="text-white font-bold text-xs sm:text-sm">
                         {s.Proficiency}%
                       </span>
                     </div>

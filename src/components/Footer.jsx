@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import {
     Mail,
@@ -11,19 +12,20 @@ import {
 } from "lucide-react";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
 
+// --- Contact Item Component (Minor text size adjustments) ---
 const ContactItem = ({ icon: Icon, title, value, href }) => (
-    <div className="flex items-start mb-4">
-        <div className="p-3 mr-4 rounded-xl bg-purple-600/20 text-purple-400">
-            <Icon className="w-5 h-5" />
+    <div className="flex items-start mb-4 sm:mb-5">
+        <div className="p-2 sm:p-3 mr-3 sm:mr-4 rounded-xl bg-purple-600/20 text-purple-400 flex-shrink-0">
+            <Icon className="w-4 h-4 sm:w-5 sm:h-5" /> {/* Responsive icon size */}
         </div>
         <div>
-            <p className="text-sm font-semibold text-gray-300">{title}</p>
+            <p className="text-xs sm:text-sm font-semibold text-gray-300">{title}</p>
             {href ? (
                 <a
                     href={href}
-                    className={`text-md text-white transition-colors ${title === "Availability"
-                            ? "cursor-default"
-                            : "hover:text-purple-400"
+                    className={`text-sm sm:text-md text-white transition-colors ${title === "Availability"
+                        ? "cursor-default"
+                        : "hover:text-purple-400"
                         }`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -31,27 +33,28 @@ const ContactItem = ({ icon: Icon, title, value, href }) => (
                     {value}
                 </a>
             ) : (
-                <p className="text-md text-white">{value}</p>
+                <p className="text-sm sm:text-md text-white">{value}</p>
             )}
         </div>
     </div>
 );
 
+// --- Social Button Component (Minor size adjustments) ---
 const SocialButton = ({ icon: Icon, name, href, color }) => (
     <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`flex items-center justify-start p-4 rounded-xl bg-slate-800 transition-colors ${color}`}
+        className={`flex items-center justify-start p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-800 transition-colors ${color}`}
         aria-label={`Follow me on ${name}`}
     >
-        <Icon className="w-5 h-5 mr-3" />
-        <span className="text-md font-medium text-white">{name}</span>
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+        <span className="text-sm font-medium text-white">{name}</span>
     </a>
 );
 
+// --- Main Footer Component ---
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
@@ -68,7 +71,7 @@ const Footer = () => {
 
     if (!details)
         return (
-            <footer className="bg-gray-900 text-gray-400 text-center py-16">
+            <footer className="bg-gray-900 text-gray-400 text-center py-12">
                 Loading contact details...
             </footer>
         );
@@ -116,30 +119,37 @@ const Footer = () => {
         })) || [];
 
     return (
-        <footer className="bg-gray-50 dark:bg-gray-800 text-white pt-20 py-16 px-6 md:px-12 lg:px-20 w-screen">
+        // Adjusted vertical padding and removed w-screen/extra horizontal padding
+        <footer className="bg-gray-50 dark:bg-gray-800 text-white pt-16 pb-12 sm:pt-20 sm:pb-16 transition-colors duration-500 w-full">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl font-extrabold text-white mb-4">
+
+                {/* Header Section */}
+                <div className="text-center mb-10 sm:mb-16">
+                    <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-3 sm:mb-4">
                         Let's Work Together
                     </h2>
-                    <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto px-2">
                         Ready to bring your ideas to life? Let’s discuss your project and
                         build something amazing together.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                {/* Main Content Grid (1-column on mobile, 3-column on large screens) */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-10">
+
                     {/* --- Left Column: Contact --- */}
-                    <div className="p-6 lg:p-8 bg-slate-900 rounded-xl lg:col-span-1 h-fit">
-                        <h3 className="text-2xl font-bold mb-6 text-white">Get In Touch</h3>
+                    {/* Reduced padding and added a subtle transition */}
+                    <div className="p-5 sm:p-6 lg:p-8 bg-slate-900 rounded-xl lg:col-span-1 h-fit shadow-2xl shadow-gray-900/50">
+                        <h3 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 text-white">Get In Touch</h3>
                         <div>
                             {contactInfo.map((item) => (
                                 <ContactItem key={item.title} {...item} />
                             ))}
                         </div>
 
-                        <div className="mt-8">
-                            <h3 className="text-2xl font-bold mb-4 text-white">Follow Me</h3>
+                        <div className="mt-6 sm:mt-8">
+                            <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">Follow Me</h3>
+                            {/* Ensured adequate spacing for social buttons on mobile */}
                             <div className="grid grid-cols-2 gap-3">
                                 {socialLinks.map(
                                     (link) =>
@@ -152,24 +162,26 @@ const Footer = () => {
                     </div>
 
                     {/* --- Right Column: Message Form --- */}
-                    <div className="p-6 lg:p-8 bg-slate-900 rounded-xl lg:col-span-2">
-                        <h3 className="text-2xl font-bold mb-6 text-white">
+                    {/* Reduced padding and added a subtle transition */}
+                    <div className="p-5 sm:p-6 lg:p-8 bg-slate-900 rounded-xl lg:col-span-2 shadow-2xl shadow-gray-900/50">
+                        <h3 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 text-white">
                             Send a Message
                         </h3>
 
-                        <form className="space-y-6">
+                        <form className="space-y-4 sm:space-y-6">
+                            {/* Input grid remains 2-column on MD+, stacks on mobile */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <input
                                     type="text"
                                     placeholder="Your name"
                                     required
-                                    className="p-3 bg-slate-800 rounded-lg text-white border-none focus:ring-2 focus:ring-purple-500"
+                                    className="p-3 bg-slate-800 rounded-lg text-white border border-slate-700/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200"
                                 />
                                 <input
                                     type="email"
                                     placeholder="your@email.com"
                                     required
-                                    className="p-3 bg-slate-800 rounded-lg text-white border-none focus:ring-2 focus:ring-purple-500"
+                                    className="p-3 bg-slate-800 rounded-lg text-white border border-slate-700/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200"
                                 />
                             </div>
 
@@ -177,20 +189,20 @@ const Footer = () => {
                                 type="text"
                                 placeholder="Project inquiry"
                                 required
-                                className="w-full p-3 bg-slate-800 rounded-lg text-white border-none focus:ring-2 focus:ring-purple-500"
+                                className="w-full p-3 bg-slate-800 rounded-lg text-white border border-slate-700/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition duration-200"
                             />
 
                             <textarea
                                 placeholder="Tell me about your project..."
-                                rows={5}
+                                rows={4} // Reduced rows slightly for mobile compactness
                                 required
                                 maxLength={500}
-                                className="w-full p-3 bg-slate-800 rounded-lg text-white border-none focus:ring-2 focus:ring-purple-500 resize-none"
+                                className="w-full p-3 bg-slate-800 rounded-lg text-white border border-slate-700/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 resize-none transition duration-200"
                             ></textarea>
 
                             <button
                                 type="submit"
-                                className="w-full py-3 text-lg font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-purple-500/30"
+                                className="w-full py-3 text-base sm:text-lg font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-purple-500/30"
                             >
                                 Send Message
                             </button>
