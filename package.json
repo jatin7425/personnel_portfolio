@@ -2,9 +2,6 @@
   "name": "personnel_portfolio",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "20.5.1"
-  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -24,8 +21,8 @@
     "mongoose": "^8.17.1",
     "next": "^15.5.4",
     "npm": "^11.6.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
