@@ -75,6 +75,21 @@ export default function Home() {
         {show('TechStackVisualization') && <TechStackVisualization />}
         {show('Projects') && <Projects />}
         {show('Footer') && <Footer />}
+        <div className="py-6 pt-20 border-t bg-[#0f172a] border-slate-800 text-center text-gray-400 w-full">
+          <p className="text-sm mb-2">
+            © 2025 {basicData.FullName}. Built with Next.js & Tailwind CSS.
+          </p>
+          <a
+            href="#top"
+            className="text-sm hover:text-white transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            Back to Top
+          </a>
+        </div>
       </div>
     </main>
   );

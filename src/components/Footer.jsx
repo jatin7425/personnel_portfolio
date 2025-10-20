@@ -198,22 +198,6 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="mt-20 py-6 border-t border-slate-800 text-center text-gray-400">
-                <p className="text-sm mb-2">
-                    © 2025 {details.FullName}. Built with Next.js & Tailwind CSS.
-                </p>
-                <a
-                    href="#top"
-                    className="text-sm hover:text-white transition-colors"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                >
-                    Back to Top
-                </a>
-            </div>
         </footer>
     );
 };
