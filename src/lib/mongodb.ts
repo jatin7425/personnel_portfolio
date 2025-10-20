@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const MONGODB_URI = process.env.MONGODB_URI as string;
+
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable inside .env.local");
+}
+
 let cached = (global as any).mongoose;
 
 if (!cached) {
@@ -7,11 +13,6 @@ if (!cached) {
 }
 
 export async function connectToDatabase() {
-  const MONGODB_URI = process.env.MONGODB_URI as string | undefined;
-  if (!MONGODB_URI) {
-    throw new Error("Please define the MONGODB_URI environment variable (set it in your hosting provider).");
-  }
-
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
