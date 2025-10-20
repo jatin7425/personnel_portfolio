@@ -32,7 +32,7 @@ const Hero = ({ basicData }: { basicData: ProfileDetails }) => {
           <div className="space-y-8">
             <div className="space-y-4">
               <p className="text-lg md:text-xl text-blue-300 font-medium tracking-wide text-shadow-lg">
-                Hello, I'm
+                Hello, I&apos;m
               </p>
               <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent text-shadow-lg">
                 {basicData?.FullName}

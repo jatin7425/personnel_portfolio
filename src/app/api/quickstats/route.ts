@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
     const mongoose = await connectToDatabase();
     const db = mongoose.connection.db;
 
@@ -17,17 +17,17 @@ export async function GET(request: Request) {
 
     let earliestDate: Date | null = null;
 
-    for (let exp of experienceData) {
-        let from = exp?.timeline?.from; // e.g. "Jan 2025"
+    for (const exp of experienceData) {
+        const from = exp?.timeline?.from; // e.g. "Jan 2025"
         if (!from) continue;
 
-        let [monthStr, yearStr] = from.split(" ");
-        let month = monthMap[monthStr];
-        let year = parseInt(yearStr);
+        const [monthStr, yearStr] = from.split(" ");
+        const month = monthMap[monthStr];
+        const year = parseInt(yearStr);
 
         if (isNaN(year) || month === undefined) continue;
 
-        let expDate = new Date(year, month);
+        const expDate = new Date(year, month);
         if (!earliestDate || expDate < earliestDate) {
             earliestDate = expDate;
         }

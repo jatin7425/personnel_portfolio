@@ -25,7 +25,8 @@ const Certifications = () => {
       try {
         const resp = await fetchCertifications();
         setCertifications(Array.isArray(resp) ? resp : [resp]);
-      } catch (error) {}
+      } catch {
+      }
     };
     getCertifications();
   }, [stateChange]);
@@ -43,7 +44,8 @@ const Certifications = () => {
       setIsEditing(false);
       setSelectedCertification(null);
       setStateChange(!stateChange); // Trigger state change to re-fetch data
-    } catch (error) {}
+    } catch {
+    }
   };
 
   const handleEdit = (cert: CertificationType) => {
@@ -57,7 +59,8 @@ const Certifications = () => {
       await deleteCertification(id);
       setCertifications((prev) => prev.filter((cert) => cert._id !== id));
       setStateChange(!stateChange); // Trigger state change to re-fetch data
-    } catch (error) {}
+    } catch {
+    }
   };
 
   const handleCancel = () => {

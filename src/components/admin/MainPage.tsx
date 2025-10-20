@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "./renderPage/Dashboard";
+import Skills from "./renderPage/Skills";
 import BasicDetails from "./renderPage/BasicDetails";
 import { ProfileDetails } from "@/types/basicDetails";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
@@ -42,7 +43,7 @@ const MainPage = ({ selected_option }: { selected_option: string }) => {
       return <Certifications />;
 
     case "skills":
-      return <Dashboard />;
+      return <Skills />;
 
     case "syncgithubrepos":
       return <SyncGithubRepos />;

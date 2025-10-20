@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { fetchBasicDetails } from "@/services/basicDetails.service";
 import LoadingPage from "@/components/ui/LoadingPage";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
+import TechStackVisualization from "@/components/TechStackVisualization";
+
 export default function Home() {
   const [basicData, setBasicData] = useState<ProfileDetails>();
 
@@ -42,6 +45,8 @@ export default function Home() {
         {basicData && <Header basicData={basicData} />}
         {basicData && <Hero basicData={basicData} />}
         {basicData && <About basicData={basicData} />}
+        <Skills />
+        <TechStackVisualization />
       </div>
     </main>
   );

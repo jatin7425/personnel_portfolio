@@ -37,7 +37,7 @@ const Education = () => {
       try {
         const resp = await fetchEducation();
         setEducations(Array.isArray(resp) ? resp : [resp]);
-      } catch (error) {
+      } catch {
         // Optionally handle error
       }
     };
@@ -59,7 +59,7 @@ const Education = () => {
       setIsEditing(false);
       setSelectedEducation(null);
       setStateChange(!stateChange); // Trigger state change to re-fetch data
-    } catch (error) {
+    } catch {
       // Optionally handle error
     }
   };
@@ -76,7 +76,7 @@ const Education = () => {
       await deleteEducation(id);
       setEducations((prev) => prev.filter((edu) => edu._id !== id));
       setStateChange(!stateChange); // Trigger state change to re-fetch data
-    } catch (error) {
+    } catch {
       // Optionally handle error
     }
   };

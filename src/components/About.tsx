@@ -2,7 +2,7 @@ import { fetchExperience } from "@/services/experience.services";
 import { ProfileDetails } from "@/types/basicDetails";
 import { EducationType, ExperienceType } from "@/types/experience";
 import Image from "next/image";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExperienceCard from "./ui/ExperienceCard";
 import EducationCard from "./ui/EducationCard";
 import CertificationCard from "./ui/CertificationCard";
@@ -139,10 +139,13 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
             <div className="relative">
-              <img
+              <Image
                 alt="Alex Johnson"
                 className="w-full max-w-md mx-auto rounded-2xl shadow-2xl object-cover object-top"
                 src={basicData?.ProfilePic || "/default-profile.jpg"}
+                width={800}
+                height={800}
+                unoptimized
               />
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-blue-600/20 to-transparent"></div>
             </div>
@@ -160,14 +163,14 @@ const About = ({ basicData }: { basicData: ProfileDetails }) => {
           <div className="space-y-8">
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg">
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
-                I'm a passionate full-stack developer and web scraping
+                I&apos;m a passionate full-stack developer and web scraping
                 specialist with a deep love for creating innovative digital
                 solutions. My journey in tech began with curiosity about how
                 websites work, which led me to explore both frontend magic and
                 backend architecture.
               </p>
               <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                When I'm not coding, you'll find me exploring the latest tech
+                When I&apos;m not coding, you&apos;ll find me exploring the latest tech
                 trends, contributing to open-source projects, or sharing
                 knowledge with the developer community. I believe in building
                 not just functional software, but experiences that make a
