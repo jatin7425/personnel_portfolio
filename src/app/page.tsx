@@ -10,6 +10,7 @@ import LoadingPage from "@/components/ui/LoadingPage";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import Footer from "@/components/Footer";
 import TechStackVisualization from "@/components/TechStackVisualization";
 
 export default function Home() {
@@ -73,6 +74,7 @@ export default function Home() {
         {show('Skills') && <Skills />}
         {show('TechStackVisualization') && <TechStackVisualization />}
         {show('Projects') && <Projects />}
+        {show('Footer') && <Footer />}
       </div>
     </main>
   );

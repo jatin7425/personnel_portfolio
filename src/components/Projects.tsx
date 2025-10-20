@@ -40,11 +40,11 @@ const Projects = () => {
         const renderableProjects = projects.filter(p => p.render !== false);
         const set = new Set<string>();
         renderableProjects.forEach((p) => set.add(p.category));
-
+        
         // Convert Set to Array and add an "All" category at the start
         return ["All", ...Array.from(set)];
     }, [projects]);
-
+    
     // Set "All" as active on initial load if projects exist
     useEffect(() => {
         if (projects.length > 0 && active === "") {
@@ -86,8 +86,8 @@ const Projects = () => {
                             onClick={() => handleCategoryClick(c)}
                             className={`px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer 
                                 ${active === c
-                                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/50"
-                                    : "bg-slate-800 text-slate-200 hover:bg-slate-700"
+                                ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/50"
+                                : "bg-slate-800 text-slate-200 hover:bg-slate-700"
                                 }`}
                         >
                             {c}
